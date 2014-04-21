@@ -5,6 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_show_result">ShowResultActivity</string>
-    <string name="title_activity_display_responses">Savor</string>
+    <string name="title_activity_display_responses"></string>
 
 </resources>

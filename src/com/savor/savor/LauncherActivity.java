@@ -78,6 +78,10 @@ public class LauncherActivity extends Activity {
 		locationManager
 				.requestLocationUpdates(bestProvider, 0, 0, loc_listener);
 		location = locationManager.getLastKnownLocation(bestProvider);
+		
+		// Turns off GPS after using it
+		locationManager.removeUpdates(loc_listener);
+		locationManager = null;
 		try {
 			lat = location.getLatitude();
 			lon = location.getLongitude();
@@ -93,7 +97,7 @@ public class LauncherActivity extends Activity {
 
 		// This subtraction is done because of the way the list is ordered in
 		// questionsReady()
-//		String message = String.valueOf(numQuestions - position + 1);
+		// String message = String.valueOf(numQuestions - position + 1);
 		intent.putExtra("data", results.toString());
 
 		startActivity(intent);

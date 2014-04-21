@@ -17,6 +17,7 @@ public class GetResults {
 	LauncherActivity ip = null;
 	double lat = 40.442;
 	double lon = -79.939;
+	int radius = 1000;
 
 	public void search(double latArg, double lonArg, LauncherActivity ip) {
 		this.ip = ip;
@@ -59,7 +60,7 @@ public class GetResults {
 			JSONArray results = null;
 
 			URL u = new URL("http://feed-me-local.appspot.com/?term=food&lat="
-					+ lat + "&lon=" + lon);
+					+ lat + "&lon=" + lon + "&radius=" + radius);
 			final URLConnection conn = u.openConnection();
 			conn.connect();
 			BufferedInputStream bis = new BufferedInputStream(
