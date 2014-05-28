@@ -82,7 +82,7 @@ public class GetResults {
 				response = tbuff; // call the temp buffer as your result buff
 			}
 			result = new String(response);
-
+			
 			// If there are no results, it returns an html document but if there
 			// are results, it returns a json document. As such, only try to
 			// make a JSONAray if there are results in JSON format.

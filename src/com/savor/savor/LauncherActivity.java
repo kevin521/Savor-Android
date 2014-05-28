@@ -45,10 +45,6 @@ public class LauncherActivity extends Activity {
 				GetResults temp = new GetResults();
 				temp.search(lat, lon, ip);
 
-				// GetPicture gp = new GetPicture();
-				// gp.search(searchTerm, ip); // Done asynchronously in another
-				// thread. It calls ip.pictureReady() in this thread when
-				// complete.
 			}
 		});
 
@@ -78,7 +74,7 @@ public class LauncherActivity extends Activity {
 		locationManager
 				.requestLocationUpdates(bestProvider, 0, 0, loc_listener);
 		location = locationManager.getLastKnownLocation(bestProvider);
-		
+
 		// Turns off GPS after using it
 		locationManager.removeUpdates(loc_listener);
 		locationManager = null;
@@ -95,13 +91,13 @@ public class LauncherActivity extends Activity {
 
 		Intent intent = new Intent(this, DisplayResponsesActivity.class);
 
-		// This subtraction is done because of the way the list is ordered in
-		// questionsReady()
-		// String message = String.valueOf(numQuestions - position + 1);
-		intent.putExtra("data", results.toString());
-
-		startActivity(intent);
-
+		if (results != null) {
+			intent.putExtra("data", results.toString());
+			startActivity(intent);
+		}
+		else{
+			
+		}
 	}
 
 }

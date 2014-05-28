@@ -82,7 +82,7 @@ public class DisplayResponsesActivity extends Activity {
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle("Back");
-//		actionBar.setDisplayUseLogoEnabled(false);
+		// actionBar.setDisplayUseLogoEnabled(false);
 		int actionBarTitleId = Resources.getSystem().getIdentifier(
 				"action_bar_title", "id", "android");
 		if (actionBarTitleId > 0) {
@@ -103,10 +103,22 @@ public class DisplayResponsesActivity extends Activity {
 
 		}
 
-		final Button button = (Button) findViewById(R.id.yes_button);
-		button.setOnClickListener(new View.OnClickListener() {
+		final Button yesButton = (Button) findViewById(R.id.yes_button);
+		yesButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				flipCard();
+			}
+		});
+
+		final Button noButton = (Button) findViewById(R.id.no_button);
+		noButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				FragmentManager fragmentManager = getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager
+						.beginTransaction();
+				
+				Fragment tempFrag = new CardFrontFragment();
+				fragmentTransaction.replace(R.id.card, tempFrag).commit();
 			}
 		});
 	}
@@ -132,12 +144,6 @@ public class DisplayResponsesActivity extends Activity {
 		imageUrl = imageUrl.substring(0, imageUrl.length() - 6) + "l.jpg";
 		// Uses AsyncTask below to grab the image
 		Bitmap image = new GetImage().execute(imageUrl).get();
-
-		// Sets the background a blurry image of the restaurant
-		Bitmap backgroundImg = CreateBlurredImage(15, image);
-		Drawable d = new BitmapDrawable(getResources(), backgroundImg);
-		LinearLayout background = (LinearLayout) findViewById(R.id.rest_background);
-		// background.setBackground(d);
 
 		// Sets the imageview with the returned image
 		ImageView restPic = (ImageView) view.findViewById(R.id.rest_pic);
@@ -238,6 +244,7 @@ public class DisplayResponsesActivity extends Activity {
 					false);
 
 			try {
+				options.clear();
 				options.add("Closed: "
 						+ currentRestaurant.getString("is_closed"));
 				options.add("Get Directions");
@@ -275,8 +282,9 @@ public class DisplayResponsesActivity extends Activity {
 						String uri;
 						try {
 							uri = "geo:0,0?q="
-									+ currentRestaurant
-											.getJSONObject("location").getString("display_address");
+									+ currentRestaurant.getJSONObject(
+											"location").getString(
+											"display_address");
 							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 									.parse(uri));
 							intent.setClassName("com.google.android.apps.maps",
@@ -391,55 +399,6 @@ public class DisplayResponsesActivity extends Activity {
 			return bitmap;
 		}
 
-	}
-
-	// BELOW IS SUPPORT METHODS TO MAKE BITMAP BLURRY
-
-	private Bitmap CreateBlurredImage(int radius, Bitmap b) {
-
-		// Sets the background as the same image but blurry
-		int orgWidth = b.getWidth();
-		int orgHeight = b.getHeight();
-
-		// This makes a copy of the image to be blurry
-		Bitmap backgroundImg = Bitmap.createBitmap(orgWidth, orgHeight,
-				Bitmap.Config.ARGB_8888);
-		int[] pixels = new int[orgWidth * orgHeight];
-		b.getPixels(pixels, 0, orgWidth, 0, 0, orgWidth, orgHeight);
-		backgroundImg.setPixels(pixels, 0, orgWidth, 0, 0, orgWidth, orgHeight);
-
-		// Load a clean bitmap and work from that.
-		Bitmap originalBitmap = backgroundImg;
-
-		// Create another bitmap that will hold the results of the filter.
-		Bitmap blurredBitmap;
-		blurredBitmap = Bitmap.createBitmap(originalBitmap);
-
-		// Create the Renderscript instance that will do the work.
-		RenderScript rs = RenderScript.create(this);
-
-		// Allocate memory for Renderscript to work with
-		Allocation input = Allocation.createFromBitmap(rs, blurredBitmap);
-		// Allocation.CreateFromBitmap(rs,
-		// originalBitmap,Allocation.MipmapControl.MIPMAP_FULL,
-		// AllocationUsage.Script);
-		Allocation output = Allocation.createTyped(rs, input.getType());
-
-		// Load up an instance of the specific script that we want to use.
-		ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs,
-				Element.U8_4(rs));
-		script.setInput(input);
-
-		// Set the blur radius
-		script.setRadius(radius);
-
-		// Start the ScriptIntrinisicBlur
-		script.forEach(output);
-
-		// Copy the output to the blurred bitmap
-		output.copyTo(blurredBitmap);
-
-		return blurredBitmap;
 	}
 
 }
