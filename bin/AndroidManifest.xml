@@ -52,14 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.savor.savor.LauncherActivity" />
         </activity>
-        <activity
-            android:name="com.savor.savor.LoadingResultsActivity"
-            android:label="@string/title_activity_loading_results"
-            android:parentActivityName="com.savor.savor.LauncherActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.savor.savor.LauncherActivity" />
-        </activity>
     </application>
 
 </manifest>

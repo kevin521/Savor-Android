@@ -36,19 +36,19 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000e;
         public static final int card=0x7f0a0001;
         public static final int foodButton=0x7f0a0005;
-        public static final int label=0x7f0a0007;
-        public static final int listView1=0x7f0a0006;
+        public static final int label=0x7f0a0008;
+        public static final int listView1=0x7f0a0007;
         public static final int no_button=0x7f0a0002;
+        public static final int progressBar1=0x7f0a0006;
         public static final int rest_background=0x7f0a0000;
-        public static final int rest_categories=0x7f0a000a;
-        public static final int rest_distance=0x7f0a000b;
-        public static final int rest_name=0x7f0a0009;
-        public static final int rest_phone=0x7f0a000d;
-        public static final int rest_pic=0x7f0a0008;
-        public static final int rest_stars=0x7f0a000c;
+        public static final int rest_categories=0x7f0a000b;
+        public static final int rest_distance=0x7f0a000c;
+        public static final int rest_name=0x7f0a000a;
+        public static final int rest_phone=0x7f0a000e;
+        public static final int rest_pic=0x7f0a0009;
+        public static final int rest_stars=0x7f0a000d;
         public static final int save_button=0x7f0a0003;
         public static final int yes_button=0x7f0a0004;
     }
@@ -59,15 +59,13 @@ public final class R {
     public static final class layout {
         public static final int activity_display_responses=0x7f030000;
         public static final int activity_launcher=0x7f030001;
-        public static final int activity_loading_results=0x7f030002;
-        public static final int back_of_cards=0x7f030003;
-        public static final int card_info=0x7f030004;
-        public static final int front_of_cards=0x7f030005;
+        public static final int back_of_cards=0x7f030002;
+        public static final int card_info=0x7f030003;
+        public static final int front_of_cards=0x7f030004;
     }
     public static final class menu {
         public static final int display_responses=0x7f090000;
         public static final int launcher=0x7f090001;
-        public static final int loading_results=0x7f090002;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;

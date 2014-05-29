@@ -14,17 +14,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 public class LauncherActivity extends Activity {
 
+	// Used to save the current location of the device
 	double lat;
 	double lon;
+
+	// Used to show the loading spinner
+	private ProgressBar spinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launcher);
-
+		spinner = (ProgressBar) findViewById(R.id.progressBar1);
+		spinner.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -32,7 +38,7 @@ public class LauncherActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.launcher, menu);
 
-		Button foodButton = (Button) findViewById(R.id.foodButton);
+		final Button foodButton = (Button) findViewById(R.id.foodButton);
 		final LauncherActivity ip = this;
 
 		foodButton.setOnClickListener(new OnClickListener() {
@@ -41,7 +47,11 @@ public class LauncherActivity extends Activity {
 				getLocation();
 				System.out.println(lat);
 				System.out.println(lon);
-
+				
+				// Hides the button and a loading spinning circle appears
+				foodButton.setVisibility(View.INVISIBLE);
+			    spinner.setVisibility(View.VISIBLE);
+				
 				GetResults temp = new GetResults();
 				temp.search(lat, lon, ip);
 
@@ -88,15 +98,14 @@ public class LauncherActivity extends Activity {
 	}
 
 	public void resultsReady(JSONArray results) {
-
 		Intent intent = new Intent(this, DisplayResponsesActivity.class);
 
 		if (results != null) {
 			intent.putExtra("data", results.toString());
+		    spinner.setVisibility(View.INVISIBLE); // Removes the spinning circle
 			startActivity(intent);
-		}
-		else{
-			
+		} else {
+
 		}
 	}
 

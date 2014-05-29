@@ -13,7 +13,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 public class GetResults {
-	ProgressDialog pd;
 	LauncherActivity ip = null;
 	double lat = 40.442;
 	double lon = -79.939;
@@ -29,12 +28,7 @@ public class GetResults {
 	private class AsyncLocationSearch extends
 			AsyncTask<String, Void, JSONArray> {
 		protected void onPreExecute() {
-			pd = new ProgressDialog(ip);
-			pd.setTitle("Loading...");
-			pd.setMessage("Please wait.");
-			pd.setCancelable(false);
-			pd.setIndeterminate(true);
-			pd.show();
+
 		}
 
 		protected JSONArray doInBackground(String... urls) {
@@ -51,7 +45,6 @@ public class GetResults {
 		}
 
 		protected void onPostExecute(JSONArray questions) {
-			pd.dismiss();
 			ip.resultsReady(questions);
 		}
 
